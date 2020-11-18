@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+    commands:
+      - echo "Jetzt sind wir in der install-Phase"
+      - aws --version
+  pre_build:
+      commands:
+        - echo "Jetzt sind wir in der pre_build-Phase"
+  build:
+    commands:
+      - java -version
+      # Unittests ausführen
+      - ./gradlew test
+      # Anwendung bauen
+      - ./gradlew assemble build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - build/libs/*.jar
+    - appspec.yml
+    - scripts/*.sh
+  #base-directory: 'dist'
+  #discard-paths: yes

@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ec2-user/myapp
+hooks:
+  ApplicationStop:
+    - location: /scripts/stopApplication.sh
+      runas: ec2-user
+  ApplicationStart:
+    - location: /scripts/startApplication.sh
+      runas: ec2-user
+  ValidateService:
+    - location: /scripts/validateService.sh
+      runas: ec2-user
